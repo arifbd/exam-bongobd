@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">My Video Player</string>
+    <string name="img_description">This is an imageview</string>
+</resources>

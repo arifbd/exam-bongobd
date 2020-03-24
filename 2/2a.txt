@@ -1,0 +1,107 @@
+2(a).
+It is an example of Factory design pattern. Factory design pattern is a creational pattern.
+
+The Factory pattern is mostly used when:
+i. We need to create objects but we don’t have the details of how they’re created.
+ii. Usability and refactoring both need to be maintained for multiple subclasses.
+iii. All objects need to go through the same creation process.
+
+
+Creating Car and Plane class using given design pattern example:
+
+Step 1: already given. create an interface.
+
+interface Vehicle {
+    int set_num_of_wheels();
+    int set_num_of_passengers();
+    boolean has_gas();
+}
+
+
+
+Step 2:
+Create Car and Plane class implementing the upper interface.
+
+public class Car implements Vehicle{
+    @Override
+    public int set_num_of_wheels() {
+        return 4;
+    }
+
+    @Override
+    public int set_num_of_passengers() {
+        return 4;
+    }
+
+    @Override
+    public boolean has_gas() {
+        return true;
+    }
+}
+
+
+
+public class Plane implements Vehicle {
+    @Override
+    public int set_num_of_wheels() {
+        return 14;
+    }
+
+    @Override
+    public int set_num_of_passengers() {
+        return 550;
+    }
+
+    @Override
+    public boolean has_gas() {
+        return false;
+    }
+}
+
+
+
+
+Step 3:
+Create VehicleFactory to generate object of Car and Plane class based on given information.
+
+public class VehicleFactory {
+
+    public Vehicle getVehicle(String vehicleName){
+
+        if (vehicleName.equalsIgnoreCase("car"))
+            return new Car();
+
+        if (vehicleName.equalsIgnoreCase("plane"))
+            return new Plane();
+
+        return null;
+    }
+}
+
+
+Step 4:
+Use the VehicleFactory to get object of Car and Plane class by passing vehicle name. and then set the values and print values;
+
+public class Main {
+    public static void main(String[] args) {
+        VehicleFactory vehicleFactory = new VehicleFactory();
+
+        //get an object of Car class and set its values by method.
+        Vehicle vehicle1 = vehicleFactory.getVehicle("car");
+        vehicle1.set_num_of_passengers(4);
+        vehicle1.set_num_of_wheels(4);
+        vehicle1.has_gas(true);
+
+        // print the values of Car
+        System.out.println(vehicle1.toString());
+
+        //get an object of Plane class and set its values by method.
+        Vehicle vehicle2 = vehicleFactory.getVehicle("plane");
+        vehicle2.set_num_of_passengers(14);
+        vehicle2.set_num_of_wheels(550);
+        vehicle2.has_gas(false);
+
+        // print the values of Plane
+        System.out.println(vehicle2.toString());
+    }
+}

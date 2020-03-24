@@ -1,0 +1,32 @@
+3. Psedocode for `Play`, `Forward`, `Rewind` functionalities.
+
+Play:
+if clicked
+ 	if already playing
+		pause the video and hold the current state.
+	else 
+		if previous state available
+			play from that state
+		else 
+			play the video from beginning.
+
+
+
+Forward: 
+if clicked
+ 	if has enough duration
+		update the state with desired time.
+	else 
+		stop the video and reset state
+
+
+Rewind: 
+if clicked
+	update the state and play from beginning.
+
+
+
+
+Design pattern will be used for these functionalities:
+We can achieve our goal by using one of the multiple design pattern.
+we will implement this with the help of Singleton design pattern.

@@ -1,0 +1,24 @@
+private fun checkAnagram(first: String, second: String): Boolean {
+    val hashMap = HashMap<Char, Int>()
+
+    for (c in first.toCharArray()) {
+        if (hashMap.containsKey(c)) {
+            hashMap[c] = hashMap[c]!! + 1
+        } else {
+            hashMap[c] = 1
+        }
+    }
+
+    for (c in second.toCharArray()) {
+        if (hashMap.containsKey(c)) {
+            hashMap[c] = hashMap[c]!! - 1
+
+            if (hashMap[c] == 0) {
+                hashMap.remove(c)
+            }
+        } else {
+            return false
+        }
+    }
+    return hashMap.isEmpty()
+}

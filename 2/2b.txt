@@ -1,0 +1,125 @@
+Here we can use Prototype design pattern to achieve the same goal. Prototype design pattern is also a creational design pattern.
+
+Implementation: 
+Step 1:
+Create Vehicle abstract class implementing Clonable interface.
+
+public abstract class Vehicle implements Cloneable {
+    protected int wheels, passengers;
+    protected boolean hasGas;
+
+    abstract void set_num_of_wheels(int wheels);
+    abstract void set_num_of_passengers(int passengers);
+    abstract void has_gas(boolean hasGas);
+
+    public Object clone() {
+        Object clone = null;
+
+        try {
+            clone = super.clone();
+
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        return clone;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "wheels=" + wheels +
+                ", passengers=" + passengers +
+                ", hasGas=" + hasGas +
+                '}';
+    }
+}
+
+
+
+Step 2
+Create Car and Plane Class extending the Vehicle class.
+
+public class Car extends Vehicle{
+
+    @Override
+    public void set_num_of_wheels(int wheels) {
+        this.wheels = wheels;
+    }
+
+    @Override
+    public void set_num_of_passengers(int passengers) {
+        this.passengers = passengers;
+    }
+
+    @Override
+    public void has_gas(boolean hasGas) {
+        this.hasGas = hasGas;
+    }
+}
+
+
+public class Plane extends Vehicle {
+
+    @Override
+    public void set_num_of_wheels(int wheels) {
+        this.wheels = wheels;
+    }
+
+    @Override
+    public void set_num_of_passengers(int passengers) {
+        this.passengers = passengers;
+    }
+
+    @Override
+    public void has_gas(boolean hasGas) {
+        this.hasGas = hasGas;
+    }
+}
+
+
+
+Step 3:
+Create VehicleCache class to get Car and Plane class and store them in a Hashtable.
+
+import java.util.Hashtable;
+
+public class VehicleCache {
+
+    private static Hashtable<String, Vehicle> vehicleMap  = new Hashtable<>();
+
+    public static Vehicle getVehicle(String vehicleName) {
+        Vehicle cachedVehicle = vehicleMap.get(vehicleName);
+        return (Vehicle) cachedVehicle.clone();
+    }
+
+    public static void loadCache() {
+        Car car = new Car();
+        car.set_num_of_wheels(4);
+        car.set_num_of_passengers(4);
+        car.has_gas(true);
+        vehicleMap.put("car",car);
+
+        Plane plane = new Plane();
+        plane.set_num_of_wheels(14);
+        plane.set_num_of_passengers(550);
+        plane.has_gas(false);
+        vehicleMap.put("plane",plane);
+    }
+}
+
+
+Step 4:
+Now call it from Main class and test it.
+
+public class Main {
+    public static void main(String[] args) {
+        VehicleCache.loadCache();
+
+        Vehicle clonedVehicle1 = VehicleCache.getVehicle("car");
+        System.out.println(clonedVehicle1.toString());
+
+        Vehicle clonedVehicle2 = VehicleCache.getVehicle("plane");
+        System.out.println(clonedVehicle2.toString());
+    }
+}
